@@ -1,0 +1,2 @@
+cc filename.c
+./a.out
