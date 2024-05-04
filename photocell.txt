@@ -1,0 +1,37 @@
+05.04 11:22 AM
+import smbus
+import time
+
+# Initialize I2C bus
+bus = smbus.SMBus(1)
+
+# Define I2C address of PCF8591 ADC
+ADC_ADDRESS = 0x48
+
+def read_adc(channel):
+    # Select ADC channel (0-3)
+    bus.write_byte(ADC_ADDRESS, 0x40 | (channel & 0x03))
+    # Wait for conversion to complete
+    time.sleep(0.1)
+    # Read ADC value (0-255)
+    return bus.read_byte(ADC_ADDRESS)
+
+try:
+    while True:
+        # Read analog input from photocell (channel 0)
+        photocell_value = read_adc(0)
+        
+        # Convert analog value to light intensity percentage
+        light_intensity = (1 - photocell_value / 255.0) * 100
+        
+        # Print light intensity
+        print('Light Intensity: {:.2f}%'.format(light_intensity))
+        
+        # Delay for 1 second
+        time.sleep(1)
+        
+except KeyboardInterrupt:
+    pass
+finally:
+    # Cleanup
+    bus.close()

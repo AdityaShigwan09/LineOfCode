@@ -1,0 +1,18 @@
+05.04 8:57 AM
+Pr.2
+import RPi.GPIO as GPIO
+from time import sleep
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Set up pin 18 as input with pull-up resistor
+
+try:
+    while True:
+        if GPIO.input(18) == GPIO.LOW:  # Check if the switch is pressed
+            print("Switch pressed")
+        else:
+            print("Switch released")
+        sleep(0.1)  # Add a small delay to avoid reading the switch too quickly
+
+except KeyboardInterrupt:
+    GPIO.cleanup()

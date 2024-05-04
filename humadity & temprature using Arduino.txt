@@ -1,0 +1,50 @@
+05.04 11:28 AM
+#include <LiquidCrystal.h>
+#include <DHT.h>
+
+#define DHTPIN 7        // Digital pin connected to the DHT sensor
+#define DHTTYPE DHT11   // Type of the DHT sensor
+
+DHT dht(DHTPIN, DHTTYPE);
+
+// Initialize the LCD library with the numbers of the interface pins
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void setup() {
+  Serial.begin(9600);
+  lcd.begin(16, 2);
+  dht.begin();
+}
+
+void loop() {
+  delay(2000);  // Delay between sensor readings
+
+  // Read humidity and temperature from the sensor
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  // Print humidity and temperature on Serial Monitor
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.print(" %\t");
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println(" °C");
+
+  // Print humidity and temperature on LCD
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Humidity: ");
+  lcd.print(humidity);
+  lcd.print("%");
+  lcd.setCursor(0, 1);
+  lcd.print("Temperature: ");
+  lcd.print(temperature);
+  lcd.print("C");
+}

@@ -1,0 +1,23 @@
+05.04 11:30 AM
+void setup() {
+  pinMode(2, OUTPUT);  // Pin connected to the first LED
+  pinMode(3, OUTPUT);  // Pin connected to the second LED
+  pinMode(4, OUTPUT);  // Pin connected to the third LED
+}
+
+void loop() {
+  digitalWrite(2, HIGH);  // Turn on the first LED
+  delay(1000);            // Wait for 1 second
+  digitalWrite(2, LOW);   // Turn off the first LED
+  delay(1000);            // Wait for 1 second
+  
+  digitalWrite(3, HIGH);  // Turn on the second LED
+  delay(1000);            // Wait for 1 second
+  digitalWrite(3, LOW);   // Turn off the second LED
+  delay(1000);            // Wait for 1 second
+  
+  digitalWrite(4, HIGH);  // Turn on the third LED
+  delay(1000);            // Wait for 1 second
+  digitalWrite(4, LOW);   // Turn off the third LED
+  delay(1000);            // Wait for 1 second
+}
